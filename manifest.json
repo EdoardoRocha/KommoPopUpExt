@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Kommo Floating Pop-up",
+  "version": "1.0",
+  "permissions": ["declarativeNetRequest"],
+  "host_permissions": ["https://superzon.kommo.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://superzon.kommo.com/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ]
+}

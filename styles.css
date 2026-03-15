@@ -1,0 +1,28 @@
+#meu-sistema-popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 400px;
+  height: 500px;
+  background: white;
+  border: 1px solid #ccc;
+  z-index: 9999;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  border: 0;
+}
+
+#meu-sistema-popup iframe {
+  flex: 1;
+  width: 100%;
+}
+
+.header {
+  background: #142D3E;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #142D3E;
+}
