@@ -8,7 +8,7 @@ popup.innerHTML = `
     <span>ChatZon</span>
     <button id="close-popup">X</button>
   </div>
-  <iframe src="https://chat-zon.vercel.app" id="view-app-chatzon" frameborder="0"></iframe>
+  <iframe src="https://chatzonweb.vercel.app" id="view-app-chatzon" frameborder="0"></iframe>
 `;
 
 document.body.appendChild(popup);
