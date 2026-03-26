@@ -19,28 +19,30 @@ const header = document.getElementById("popup-header");
 const btnPopUp = document.getElementById("close-popup");
 
 btnPopUp.onclick = (e) => {
-  e.stopPropagation(); // Evita conflitos com o drag
+  e.stopPropagation(); // Impede o drag de iniciar ao clicar no botão
 
   const isMinimized = popupBox.classList.toggle("minimized");
 
   if (isMinimized) {
     btnPopUp.innerHTML = "+";
-    // Limpa posições do drag para a aba colar na direita via CSS
-    popupBox.style.left = "";
+    // Limpa posições de arrasto para o CSS da aba lateral dominar
     popupBox.style.top = "";
+    popupBox.style.left = "";
+    popupBox.style.right = "0px";
     popupBox.style.bottom = "";
   } else {
     btnPopUp.innerHTML = "X";
-    // Restaura posição padrão se desejar, ou mantém onde o CSS definir
+    // Restaura posição padrão do modal expandido
     popupBox.style.top = "auto";
-    popupBox.style.bottom = "20px";
+    popupBox.style.left = "auto";
     popupBox.style.right = "20px";
+    popupBox.style.bottom = "20px";
   }
 };
 
-// Ajuste na lógica de Drag para não bugar quando minimizado
+// Ajuste no Drag para não bugar quando minimizado
 header.addEventListener("mousedown", (e) => {
-  if (popupBox.classList.contains("minimized")) return; // Opcional: desativa drag se estiver minimizado
+  if (popupBox.classList.contains("minimized")) return;
 
   isDragging = true;
   offset.x = e.clientX - popupBox.offsetLeft;
@@ -49,20 +51,12 @@ header.addEventListener("mousedown", (e) => {
   app.style.pointerEvents = "none";
   document.body.style.userSelect = "none";
 });
+
+// ... (resto do código de mousemove e mouseup igual)
 
 // Drag drop logic
 let isDragging = false;
 let offset = { x: 0, y: 0 };
-
-header.addEventListener("mousedown", (e) => {
-  isDragging = true;
-
-  offset.x = e.clientX - popupBox.offsetLeft;
-  offset.y = e.clientY - popupBox.offsetTop;
-
-  app.style.pointerEvents = "none";
-  document.body.style.userSelect = "none";
-});
 
 window.addEventListener("mousemove", (e) => {
   if (!isDragging) return;

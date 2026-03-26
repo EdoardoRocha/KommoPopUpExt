@@ -1,57 +1,100 @@
-/* Estado Normal (Expandido) */
-#meu-sistema-popup {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 400px;
-  height: 540px;
-  background: white;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  z-index: 9999;
-  transition: width 0.3s, height 0.3s, right 0.3s; /* Transição suave */
-  overflow: hidden;
+/* Reseta tudo dentro do modal para o Kommo não interferir */
+#meu-sistema-popup, 
+#meu-sistema-popup * {
+    box-sizing: border-box !important;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
 }
 
-/* ESTADO MINIMIZADO (Aba lateral) */
+#meu-sistema-popup {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 400px;
+    height: 540px;
+    background: #fff;
+    z-index: 2147483647 !important; /* Valor máximo para ficar acima de tudo */
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none !important;
+}
+
+/* --- ESTADO MINIMIZADO (Aba Lateral) --- */
 #meu-sistema-popup.minimized {
-  width: 40px; 
-  height: 160px;
-  right: 0 !important; /* Cola no canto direito */
-  top: 50% !important; /* Centraliza verticalmente */
-  transform: translateY(-50%);
-  border-radius: 8px 0 0 8px; /* Arredonda só o lado esquerdo */
-  cursor: pointer;
+    width: 45px !important;
+    height: 180px !important;
+    right: 0 !important;
+    bottom: 50% !important;
+    transform: translateY(50%);
+    border-radius: 12px 0 0 12px;
+    cursor: pointer;
 }
 
 #meu-sistema-popup.minimized iframe {
-  display: none; /* Esconde o conteúdo */
+    display: none !important;
 }
 
 #meu-sistema-popup.minimized .header {
-  height: 100%;
-  flex-direction: column-reverse; /* Inverte para o botão ficar em cima ou embaixo */
-  padding: 10px 5px;
-  align-items: center;
-  justify-content: center;
+    height: 100% !important;
+    flex-direction: column-reverse !important;
+    padding: 15px 5px !important;
 }
 
 #meu-sistema-popup.minimized .header span {
-  writing-mode: vertical-rl; /* Texto na vertical */
-  text-orientation: mixed;
-  transform: rotate(180deg);
-  margin-top: 10px;
-  font-weight: bold;
-  letter-spacing: 1px;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin-top: 10px;
 }
 
-.header {
-  background: #142D3E;
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
+/* --- ESTILOS DO HEADER --- */
+#meu-sistema-popup .header {
+    background: #142D3E !important;
+    padding: 12px 15px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    color: #fff !important;
+    cursor: move;
+    user-select: none;
+}
+
+#meu-sistema-popup .header span {
+    font-weight: 600 !important;
+    color: #fff !important;
+    background: transparent !important; /* Evita fundo azul herdado */
+}
+
+#meu-sistema-popup .header button {
+    background: rgba(255,255,255,0.1) !important;
+    border: none !important;
+    color: #fff !important;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    cursor: pointer !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+#meu-sistema-popup .header button:hover {
+    background: rgba(255,255,255,0.2) !important;
+}
+
+/* --- IFRAME --- */
+#meu-sistema-popup iframe {
+    flex: 1;
+    width: 100% !important;
+    height: 100% !important;
+    border: none !important;
+    background: #fff !important;
 }
