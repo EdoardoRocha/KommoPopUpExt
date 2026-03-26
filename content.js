@@ -6,7 +6,7 @@ popup.style.zIndex = "9999";
 popup.innerHTML = `
   <div class="header" id="popup-header" style="cursor: move;">
     <span>ChatZon</span>
-    <button id="close-popup">X</button>
+    <button id="close-popup">-</button>
   </div>
   <iframe src="https://chatzonweb.vercel.app" id="view-app-chatzon" frameborder="0"></iframe>
 `;
@@ -16,19 +16,39 @@ document.body.appendChild(popup);
 const app = document.getElementById("view-app-chatzon");
 const popupBox = document.getElementById("meu-sistema-popup");
 const header = document.getElementById("popup-header");
-const btnPopUp = document.getElementById("close-popup")
+const btnPopUp = document.getElementById("close-popup");
 
-btnPopUp.onclick = () => {
-  if (app.style.display !== "none") {
-    btnPopUp.innerHTML = "-";
-    app.style.display = "none";
-    popupBox.style.height = "auto";
+btnPopUp.onclick = (e) => {
+  e.stopPropagation(); // Evita conflitos com o drag
+
+  const isMinimized = popupBox.classList.toggle("minimized");
+
+  if (isMinimized) {
+    btnPopUp.innerHTML = "+";
+    // Limpa posições do drag para a aba colar na direita via CSS
+    popupBox.style.left = "";
+    popupBox.style.top = "";
+    popupBox.style.bottom = "";
   } else {
     btnPopUp.innerHTML = "X";
-    app.style.display = "block";
-    popupBox.style.height = "540px";
+    // Restaura posição padrão se desejar, ou mantém onde o CSS definir
+    popupBox.style.top = "auto";
+    popupBox.style.bottom = "20px";
+    popupBox.style.right = "20px";
   }
 };
+
+// Ajuste na lógica de Drag para não bugar quando minimizado
+header.addEventListener("mousedown", (e) => {
+  if (popupBox.classList.contains("minimized")) return; // Opcional: desativa drag se estiver minimizado
+
+  isDragging = true;
+  offset.x = e.clientX - popupBox.offsetLeft;
+  offset.y = e.clientY - popupBox.offsetTop;
+
+  app.style.pointerEvents = "none";
+  document.body.style.userSelect = "none";
+});
 
 // Drag drop logic
 let isDragging = false;
